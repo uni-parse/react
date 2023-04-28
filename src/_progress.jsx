@@ -1,13 +1,16 @@
 export default function Progress({ history, setCurrentMove }) {
   const moves = history.map((progress, i) => {
-    const description = i ? `undo to move #${i}` : 'restart'
+    const description = i ? `move #${i}` : 'restart'
     return (
-      <li key={i}>
-        <button onClick={() => setCurrentMove(i)}>
-          {description}
-        </button>
-      </li>
+      <button key={i} onClick={() => setCurrentMove(i)}>
+        {description}
+      </button>
     )
   })
-  return <ol className='game-info'>{moves}</ol>
+  return (
+    <fieldset className='game-info'>
+      <legend>Progress</legend>
+      {moves}
+    </fieldset>
+  )
 }

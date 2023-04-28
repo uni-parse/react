@@ -1,16 +1,22 @@
+let canPlay = true
 export default function Board({ xo, progress, onPlay }) {
-  const squares = progress.map((state, i) => (
+  const squares = progress.map((xo, i) => (
     <Square
       key={i}
-      value={state}
+      value={xo}
       onSquareClick={() => handleClick(i)}
     />
   ))
 
   const winner = calculateWinner(progress)
-  const status = winner
-    ? `👑winner: ${winner}`
-    : `👤player: ${xo}`
+  let status
+  if (/^X|O$/.test(winner))
+    status = `👑Winner: ${winner == 'X' ? 'Player' : 'AI'}`
+  else if (winner == 'gameOver') status = 'Game Over'
+  else if (winner == 'continue')
+    status = xo == 'X' ? '👤Player: X' : '💻AI: O'
+
+  //console.log(winner)
 
   return (
     <div className='game-board'>
@@ -20,12 +26,37 @@ export default function Board({ xo, progress, onPlay }) {
   )
 
   function handleClick(i) {
-    if (progress[i] || winner) return
+    if (progress[i] || winner != 'continue' || !canPlay) return
 
     const nextProgress = progress.slice() // copy (immutability)
     nextProgress.splice(i, 1, xo)
 
     onPlay(nextProgress)
+
+    canPlay = false
+
+    // ai turn
+    setTimeout(() => {
+      //return
+      if (calculateWinner(nextProgress) != 'continue') return
+
+      const emptyIndexes = nextProgress.reduce((arr, xo, i) => {
+        if (!xo) arr.push(i)
+        return arr
+      }, [])
+
+      const randomIndex =
+        emptyIndexes[
+          Math.floor(Math.random() * emptyIndexes.length)
+        ]
+
+      const aiProgress = nextProgress.slice()
+      aiProgress.splice(randomIndex, 1, xo == 'X' ? 'O' : 'X')
+
+      onPlay(aiProgress, 'ai')
+
+      canPlay = true
+    }, 700)
   }
 }
 
@@ -49,6 +80,7 @@ function calculateWinner(progress) {
     [2, 4, 6],
   ]
 
+  // find winner
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
 
@@ -60,5 +92,7 @@ function calculateWinner(progress) {
       return progress[a] // 'X' | 'O'
   }
 
-  return null
+  if (!progress.includes(null)) return 'gameOver'
+
+  return 'continue'
 }
