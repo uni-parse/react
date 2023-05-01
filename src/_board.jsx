@@ -1,5 +1,12 @@
-let canPlay = true
-export default function Board({ xo, progress, onPlay }) {
+import { useState } from 'react'
+
+export default function Board({
+  turn,
+  setTurn,
+  xo,
+  progress,
+  onPlay,
+}) {
   const squares = progress.map((xo, i) => (
     <Square
       key={i}
@@ -16,8 +23,6 @@ export default function Board({ xo, progress, onPlay }) {
   else if (winner == 'continue')
     status = xo == 'X' ? '👤Player: X' : '💻AI: O'
 
-  //console.log(winner)
-
   return (
     <div className='game-board'>
       <h3>{status}</h3>
@@ -26,18 +31,18 @@ export default function Board({ xo, progress, onPlay }) {
   )
 
   function handleClick(i) {
-    if (progress[i] || winner != 'continue' || !canPlay) return
+    if (progress[i] || winner != 'continue' || turn != 'player')
+      return
 
     const nextProgress = progress.slice() // copy (immutability)
     nextProgress.splice(i, 1, xo)
 
     onPlay(nextProgress)
 
-    canPlay = false
+    setTurn('ai')
 
     // ai turn
     setTimeout(() => {
-      //return
       if (calculateWinner(nextProgress) != 'continue') return
 
       const emptyIndexes = nextProgress.reduce((arr, xo, i) => {
@@ -55,7 +60,7 @@ export default function Board({ xo, progress, onPlay }) {
 
       onPlay(aiProgress, 'ai')
 
-      canPlay = true
+      setTurn('player')
     }, 700)
   }
 }

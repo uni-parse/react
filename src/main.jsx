@@ -5,12 +5,14 @@ import ReactDOM from 'react-dom/client'
 
 import App from './app.jsx'
 import Game from './game.jsx'
+import Filter from './filter.jsx'
 
 const root = document.getElementById('root')
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <Game />
+    {false && <Filter />}
+    {true && <Game />}
     {false && <App />}
   </React.StrictMode>
 )

@@ -1,8 +1,19 @@
-export default function Progress({ history, setCurrentMove }) {
+export default function Progress({
+  setXo,
+  setTurn,
+  history,
+  setCurrentMove,
+}) {
   const moves = history.map((progress, i) => {
     const description = i ? `move #${i}` : 'restart'
     return (
-      <button key={i} onClick={() => setCurrentMove(i)}>
+      <button
+        key={i}
+        onClick={() => {
+          setXo('X')
+          setTurn('player')
+          setCurrentMove(i)
+        }}>
         {description}
       </button>
     )

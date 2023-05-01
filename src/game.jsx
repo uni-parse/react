@@ -7,16 +7,25 @@ export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [currentMove, setCurrentMove] = useState(0)
   const [xo, setXo] = useState('X')
+  const [turn, setTurn] = useState('player')
 
   const progress = history[currentMove]
 
   return (
     <div className='game'>
       <Progress
+        setXo={setXo}
+        setTurn={setTurn}
         history={history}
         setCurrentMove={setCurrentMove}
       />
-      <Board xo={xo} progress={progress} onPlay={handlePlay} />
+      <Board
+        turn={turn}
+        setTurn={setTurn}
+        xo={xo}
+        progress={progress}
+        onPlay={handlePlay}
+      />
     </div>
   )
 
