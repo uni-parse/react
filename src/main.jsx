@@ -6,6 +6,7 @@ import Game from './game.jsx'
 import Filter from './filter.jsx'
 
 import Queue from './tasks/useState updates queue/queue.jsx'
+import Test from './test.jsx'
 
 //import './sass/main.scss'
 
@@ -15,7 +16,8 @@ document.body.append(main)
 const root = createRoot(main)
 root.render(
   <StrictMode>
-    {true && <Queue />}
+    {true && <Test />}
+    {false && <Queue />}
     {false && <Filter />}
     {false && <Game />}
     {false && <App />}
