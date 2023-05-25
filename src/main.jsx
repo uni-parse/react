@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import App from './app.jsx'
 import Game from './game.jsx'
 import Filter from './filter.jsx'
+import Contex from './context.jsx'
 
 import Queue from './tasks/useState updates queue/queue.jsx'
 import Test from './test.jsx'
@@ -16,7 +17,8 @@ document.body.append(main)
 const root = createRoot(main)
 root.render(
   <StrictMode>
-    {true && <Test />}
+    {true && <Contex />}
+    {false && <Test />}
     {false && <Queue />}
     {false && <Filter />}
     {false && <Game />}
