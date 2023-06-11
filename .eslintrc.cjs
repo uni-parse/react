@@ -4,9 +4,9 @@ module.exports = {
         es2021: true
     },
     extends: [
+        "react-app",
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:prettier/recommended"
     ],
     parserOptions: {
         ecmaVersion: "latest",
@@ -15,9 +15,20 @@ module.exports = {
     plugins: [
         "react",
         "react-hooks",
-        'prettier'
     ],
+    settings: {
+        react: {
+            version: 'detect'
+        },
+        'import/resolver': {
+            node: {
+                paths: ['src'],
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
+    },
     rules: {
-        "react/react-in-jsx-scope": 1,
+        "react/react-in-jsx-scope": 0,
+        'react/prop-types': ['off']
     }
 }

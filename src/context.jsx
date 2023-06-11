@@ -41,7 +41,8 @@ function Ctx({ children }) {
         border: `solid #${lvl % 2 ? '077' : 470}`,
         borderRadius: '1em',
         padding: '1em',
-      }}>
+      }}
+    >
       <lvlCtx.Provider value={lvl + 1}>
         {children}
       </lvlCtx.Provider>
@@ -63,7 +64,8 @@ function Div({ children }) {
         border: 'dashed thin darkorange',
         borderRadius: '1em',
         padding: '1em',
-      }}>
+      }}
+    >
       {children}
     </div>
   )

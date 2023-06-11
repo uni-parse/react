@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import eslint from 'vite-plugin-eslint'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   base: './',
   preview: {
-    port: 5000
+    port: 5000,
   },
   server: {
     port: 3001,
   },
-  plugins: [react()],
+  plugins: [react(), eslint()],
 })

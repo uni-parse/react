@@ -17,9 +17,10 @@ export default function Memo() {
   //const output = fibonacci(num)
   //console.timeEnd(`fibonchi(${num})`)
 
-  return (    <>
+  return (
+    <>
       fibonacci(
-      <input ref={ref} placeholder='0' size='4' />){' '}
+      <input ref={ref} placeholder="0" size="4" />){' '}
       <button onClick={() => setNum(+ref.current.value)}>
         {' '}
         ={' '}
@@ -43,4 +44,5 @@ function cacheDicorator(fn) {
   }
 }
 
+// eslint-disable-next-line no-func-assign
 fibonacci = cacheDicorator(fibonacci)
