@@ -14,6 +14,7 @@ import { createRoot } from 'react-dom/client'
 // import Test from './test.jsx'
 // import DontUseEffect from './tasks/useEffect/dontUseEffect.jsx'
 
+import CostomHookComponent from './customhook'
 import './sass/main.scss'
 
 const main = document.createElement('main')
@@ -23,7 +24,7 @@ const root = createRoot(main)
 root.render(
   <StrictMode>
     <h1 className="pt-2 bg-red-500 p-4">test tailwind</h1>
-    <br />
+    {true && <CostomHookComponent />}
   </StrictMode>,
 )
 
